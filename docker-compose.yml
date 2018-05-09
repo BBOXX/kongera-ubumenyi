@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    container_name: kongera-app
+    volumes:
+      - "./:/code"
+    environment:
+      - FLASK_APP=dev
+      - DATABASE_URI=postgresql+psycopg2://postgres:devpassword@kongera-db/postgres
+    depends_on:
+      - db
+  nginx:
+    build:
+      # Need to build from root directory so that static files
+      # can be copied from outside of the nginx directory
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    container_name: kongera-nginx
+    ports:
+      - "80:8080"
+    depends_on:
+      - app
+  db:
+    image: postgres
+    container_name: kongera-db
+    environment:
+      - POSTGRES_PASSWORD=devpassword
