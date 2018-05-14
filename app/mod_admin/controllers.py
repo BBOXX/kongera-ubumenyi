@@ -25,6 +25,7 @@ admin.add_view(SkillGroupModelView(SkillGroup, db.session))
 class ReveiwModelView(BaseModelView):
     """ Customise the view for the Review object """
     inline_models = [(ReviewSkill, dict(form_columns=[
+        'id',
         'skill',
         'target_date',
         'notes']))]

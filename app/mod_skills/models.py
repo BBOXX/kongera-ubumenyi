@@ -20,6 +20,7 @@ class Skill(Base):
 
     reviews = db.relationship('ReviewSkill', backref='skill')
 
+
 class SkillLevel(Base):
 
     __tablename__ = "skill_level"
