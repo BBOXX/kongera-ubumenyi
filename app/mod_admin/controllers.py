@@ -2,7 +2,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from app import app, db
 from app.mod_skills.models import Skill, SkillLevel, SkillGroup
-from app.mod_reviews.models import Review, ReviewSkill
+from app.mod_reviews.models import Review, Objective
 
 admin = Admin(app, name='admin-kongera-ubumenyi', template_mode='bootstrap3')
 
@@ -22,11 +22,11 @@ class SkillGroupModelView(BaseModelView):
 admin.add_view(SkillGroupModelView(SkillGroup, db.session))
 
 # The admin panel for reviews - replace with a custom view for production
-class ReveiwModelView(BaseModelView):
+class ReviewModelView(BaseModelView):
     """ Customise the view for the Review object """
-    inline_models = [(ReviewSkill, dict(form_columns=[
+    inline_models = [(Objective, dict(form_columns=[
         'id',
         'skill',
         'target_date',
         'notes']))]
-admin.add_view(ReveiwModelView(Review, db.session))
+admin.add_view(ReviewModelView(Review, db.session))

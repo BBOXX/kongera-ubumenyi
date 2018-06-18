@@ -1,6 +1,5 @@
 from app import db, app
 from app.common.models import Base
-from app.mod_reviews.models import Review
 from .activedirectory import ActiveDirectory
 
 
@@ -19,7 +18,7 @@ class User(Base):
         super(User, self).__init__(**kwargs)
         
         if not self.is_authenticated():
-            return None
+            return
 
     def get_manager(self):
         pass

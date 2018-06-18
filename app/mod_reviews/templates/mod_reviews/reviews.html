@@ -6,16 +6,17 @@
     <div class="row">
         <div class="col-md-6">
             <h2>My Team's Reviews</h2>
-            <a href="/person/1/review/create">Start New Review</a>
+            <a href="/reviews/person/1/review/create">Start New Review</a>
             {% for review in team_reviews %}
             <p>new review</p>
             {% endfor %}
         </div>
         <div class="col-md-6">
             <h2>My Last Review</h2>
-            <ul>    
+            {% if my_review is not none %}
+            <ul>
                 <li>Date: {{my_review.review_date}}</li>
-                <li>Reviewer: {{my_review.reviewer}}</li>
+                <li>Reviewer: {{my_review.reviewer.id}}</li>
                 <li>Skills:
                     <ul>
                     {% if 'review.skills' == '[]' %}
@@ -28,6 +29,9 @@
                     </ul>
                 </li>   
             </ul>
+            {% else %}
+            <p>No review found</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

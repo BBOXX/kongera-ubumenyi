@@ -1,11 +1,29 @@
 {% extends "layout.html" %}
 {% block title %}Reviews{% endblock %}
-
 {% block content %}
-    <div class="row"><h1>New Review</h1></div>
-    <div class="row">
-        <div class="col-md-12">
-           
-        </div>
+<div class="row"><h1>New Review</h1></div>
+<div class="row">
+    <div class="col-md-12">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.review_date.label }}
+                {{ form.review_date() }}
+                {% for error in form.review_date.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+
+            <div>
+                {% for objective in form.review_objectives %}
+                    {% for error in objective.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    {{ objective() }}
+                {% endfor %}
+            </div>
+            <p>{{ form.submit() }}</p>
+        </form>
     </div>
+</div>
 {% endblock %}

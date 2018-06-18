@@ -1,4 +1,4 @@
-from app.mod_reviews.models import Review, ReviewSkill
+from app.mod_reviews.models import Review, Objective
 from app.mod_skills.models import SkillGroup, Skill, SkillLevel
 from app import db
 
@@ -46,4 +46,3 @@ def populate_test_data():
         db.session.commit()
 
     # Add some reviews
-    

@@ -1,6 +1,6 @@
-from ldap3 import Server, Connection, ALL, NTLM, SUBTREE, ALL_ATTRIBUTES
+from ldap3 import Server, Connection, NTLM, SUBTREE, ALL_ATTRIBUTES
 
-class ActiveDirectory():
+class ActiveDirectory(object):
 
     def __init__(self, host, port, username, password, base_dn=""):
         self.user = username
@@ -21,14 +21,14 @@ class ActiveDirectory():
 
     def __get_user(self, search_key, search_value):
         search_filter = "(&(objectclass=user)("+search_key+"="+search_value+"*))"
-    
+
         #Search AD
-        self.conn.search(search_base=self.base_dn, 
-                search_filter=search_filter, 
-                search_scope=SUBTREE, 
-                attributes = ALL_ATTRIBUTES, 
-                size_limit=0
-            )
+        self.conn.search(search_base=self.base_dn,
+                         search_filter=search_filter,
+                         search_scope=SUBTREE,
+                         attributes=ALL_ATTRIBUTES,
+                         size_limit=0
+                        )
 
         return self.conn.entries
 
@@ -40,4 +40,3 @@ class ActiveDirectory():
 
     def get_user_by_guid(self, guid):
         return self.__get_user("objectGUID", guid)
-

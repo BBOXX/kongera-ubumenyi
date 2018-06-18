@@ -10,7 +10,7 @@ class SkillGroup(Base):
 
 
 class Skill(Base):
-    """ Data Model for a Skill, this object has a parent SKillGroup and Child SkillLevels   
+    """ Data Model for a Skill, this object has a parent SKillGroup and Child SkillLevels
     """
     __tablename__ = "skill"
 
@@ -18,7 +18,7 @@ class Skill(Base):
     skill_group_id = db.Column(db.Integer, db.ForeignKey('skill_group.id'))
     skill_levels = db.relationship('SkillLevel', backref='skill')
 
-    reviews = db.relationship('ReviewSkill', backref='skill')
+    reviews = db.relationship('Objective', backref='skill')
 
 
 class SkillLevel(Base):
@@ -26,7 +26,7 @@ class SkillLevel(Base):
     __tablename__ = "skill_level"
 
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id')) # This+level must be unique
-    level = db.Column(db.Integer) # add contraint between 0 - 4
+    level = db.Column(db.Integer) # add constraint between 0 - 4
     description = db.Column(db.String(512))
 
     # review_current_levels = db.relationship('reviewskill.current_level_id', backref='skill_level')

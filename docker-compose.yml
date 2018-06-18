@@ -7,10 +7,17 @@ services:
     volumes:
       - "./:/code"
     environment:
-      - FLASK_APP=dev
+      - FLASK_APP=app
+      - FLASK_ENV=development
+      - FLASK_DEBUG=0
       - DATABASE_URI=postgresql+psycopg2://postgres:devpassword@kongera-db/postgres
     depends_on:
       - db
+    links:
+      - nginx
+    ports:
+      - "5000:5000"
+#    restart: always
   nginx:
     build:
       # Need to build from root directory so that static files
@@ -20,10 +27,12 @@ services:
     container_name: kongera-nginx
     ports:
       - "80:8080"
-    depends_on:
-      - app
+#    depends_on:
+#      - app
   db:
     image: postgres
     container_name: kongera-db
     environment:
       - POSTGRES_PASSWORD=devpassword
+    ports:
+      - "5432:5432"
